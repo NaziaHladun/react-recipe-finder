@@ -13,20 +13,24 @@ const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const recipesPerPage = 10;
 
+  const selectedCategory = useSelector(
+    (state: RootState) => state.searchQuery.category
+  );
+
+  const filteredRecipes = selectedCategory
+    ? recipes.filter((meal) => meal.strCategory === selectedCategory)
+    : recipes;
+
   useEffect(() => {
     dispatch(fetchRecipes(""));
   }, [dispatch]);
 
   const totalPages = Math.ceil(recipes.length / recipesPerPage);
 
-  const startIndex = (currentPage - 1) * recipesPerPage;
-  const endIndex = startIndex + recipesPerPage;
-  const currentRecipes = recipes.slice(startIndex, endIndex);
-
   return (
     <Container>
       <CardContainer>
-        {currentRecipes.map((meal) => (
+        {filteredRecipes.map((meal) => (
           <RecipeCard
             key={meal.idMeal}
             id={meal.idMeal}

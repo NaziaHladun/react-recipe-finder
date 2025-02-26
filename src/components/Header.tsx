@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchRecipes } from "../store/features/recipeSlice";
 import { AppDispatch } from "../store/store";
+import { Selector } from "./UI/Selector";
 
 export const Header = () => {
   const [inputValue, setInputValue] = useState("");
@@ -18,6 +19,7 @@ export const Header = () => {
 
   return (
     <HeaderContainer>
+      <Selector />
       <TextField
         label="Search recipe"
         size="small"
