@@ -24,6 +24,7 @@ export interface RecipesState {
   selectedRecipe: Recipe | null;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
+  favorites: Recipe[];
 }
 
 export interface RecipeCardProps {
@@ -32,4 +33,9 @@ export interface RecipeCardProps {
   image: string;
   area: string;
   category: string;
+  recipe: Recipe;
+}
+
+export interface FavoriteButtonProps {
+  recipe: Recipe;
 }

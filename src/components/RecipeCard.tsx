@@ -9,6 +9,7 @@ import { RecipeCardProps } from "../models/types";
 
 import { Link } from "react-router-dom";
 import { CardActions } from "@mui/material";
+import FavoriteButton from "./UI/FavoriteButton";
 
 export default function RecipeCard({
   id,
@@ -16,6 +17,7 @@ export default function RecipeCard({
   image,
   area,
   category,
+  recipe,
 }: RecipeCardProps) {
   return (
     <Card sx={{ width: 310, height: 360 }}>
@@ -31,10 +33,17 @@ export default function RecipeCard({
           {`Country: ${area}`}
         </Typography>
       </CardContent>
-      <CardActions sx={{ alignItems: "flex-end" }}>
+      <CardActions
+        sx={{
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          margin: "10px",
+        }}
+      >
         <Link to={`/recipe/${id}`}>
           <Button size="small">View Details</Button>
         </Link>
+        <FavoriteButton recipe={recipe} />
       </CardActions>
     </Card>
   );

@@ -8,6 +8,7 @@ const initialState: RecipesState = {
   selectedRecipe: null,
   status: "idle",
   error: null,
+  favorites: [],
 };
 
 //Function for grouping ingredients
@@ -92,6 +93,16 @@ const recipeSlice = createSlice({
   name: "recipes",
   initialState,
   reducers: {
+    addToFavorites: (state, action: PayloadAction<Recipe>) => {
+      if (!state.favorites.some((r) => r.idMeal === action.payload.idMeal)) {
+        state.favorites.push(action.payload);
+      }
+    },
+    removeFromFavorites: (state, action: PayloadAction<string>) => {
+      state.favorites = state.favorites.filter(
+        (recipe) => recipe.idMeal !== action.payload
+      );
+    },
     clearSelectedRecipe: (state) => {
       state.selectedRecipe = null;
     },
@@ -129,5 +140,6 @@ const recipeSlice = createSlice({
   },
 });
 
-export const { clearSelectedRecipe } = recipeSlice.actions;
+export const { clearSelectedRecipe, addToFavorites, removeFromFavorites } =
+  recipeSlice.actions;
 export default recipeSlice.reducer;
