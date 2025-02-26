@@ -8,12 +8,12 @@ import FavoritesPage from "./pages/FavoritePage";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/react-recipe-finder/",
     element: <RootLayout />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "/recipe/:id", element: <RecipePage /> },
-      { path: "/favorites", element: <FavoritesPage /> },
+      { path: "/react-recipe-finder/recipe/:id", element: <RecipePage /> },
+      { path: "/react-recipe-finder/favorites", element: <FavoritesPage /> },
     ],
   },
 ]);
