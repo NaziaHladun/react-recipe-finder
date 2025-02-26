@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import {
@@ -7,8 +7,8 @@ import {
   clearSelectedRecipe,
 } from "../store/features/recipeSlice";
 
-import { Box, Typography, styled } from "@mui/material";
-import IngredientsList from "../components/IngredientsCard";
+import { Box, Button, Typography, styled } from "@mui/material";
+import IngredientsList from "../components/UI/IngredientsCard";
 
 const RecipePage = () => {
   const { id } = useParams<{ id: string }>();
@@ -39,6 +39,11 @@ const RecipePage = () => {
 
   return (
     <Container>
+      <Link to={`/`}>
+        <BackButton variant="outlined" color="success">
+          Back to recipes
+        </BackButton>
+      </Link>
       <Content>
         <Details>
           <Typography variant="h4">{recipe.strMeal}</Typography>
@@ -106,4 +111,8 @@ const RecipeSection = styled(Box)(() => ({
 const Instructions = styled(Box)(() => ({
   flex: 1,
   textAlign: "justify",
+}));
+
+const BackButton = styled(Button)(() => ({
+  margin: "10px 15px ",
 }));

@@ -4,7 +4,8 @@ import { AppDispatch, RootState } from "../store/store";
 import { fetchRecipes } from "../store/features/recipeSlice";
 
 import RecipeCard from "../components/RecipeCard";
-import { Box, Pagination, Stack, styled } from "@mui/material";
+import { Box, Button, Pagination, Stack, styled } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -25,12 +26,32 @@ const HomePage = () => {
     dispatch(fetchRecipes(""));
   }, [dispatch]);
 
-  const totalPages = Math.ceil(recipes.length / recipesPerPage);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, filteredRecipes.length]);
+
+  const totalPages = Math.ceil(filteredRecipes.length / recipesPerPage);
+
+  const indexOfLastRecipe = currentPage * recipesPerPage;
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  const currentRecipes = filteredRecipes.slice(
+    indexOfFirstRecipe,
+    indexOfLastRecipe
+  );
+
+  const paginationView = totalPages > 1 ? "visible" : "hidden";
 
   return (
     <Container>
+      <Nav>
+        <Link to={`/favorites`}>
+          <Button variant="outlined" color="success">
+            Favorites
+          </Button>
+        </Link>
+      </Nav>
       <CardContainer>
-        {filteredRecipes.map((meal) => (
+        {currentRecipes.map((meal) => (
           <RecipeCard
             key={meal.idMeal}
             id={meal.idMeal}
@@ -38,12 +59,14 @@ const HomePage = () => {
             image={meal.strMealThumb}
             area={meal.strArea}
             category={meal.strCategory}
+            recipe={meal}
           />
         ))}
       </CardContainer>
 
       <PaginationStack>
         <Pagination
+          sx={{ visibility: paginationView }}
           count={totalPages}
           page={currentPage}
           onChange={(_event, value) => {
@@ -67,7 +90,7 @@ const Container = styled(Box)(() => ({
 }));
 
 const CardContainer = styled(Box)(() => ({
-  minHeight: "calc(100vh - 200px)",
+  minHeight: "calc(100vh - 252px)",
   padding: "20px",
   display: "flex",
   flexWrap: "wrap",
@@ -80,4 +103,11 @@ const PaginationStack = styled(Stack)(() => ({
   height: "80px",
   alignItems: "center",
   justifyContent: "center",
+}));
+
+const Nav = styled("nav")(() => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  paddingTop: "15px",
 }));
