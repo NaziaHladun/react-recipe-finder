@@ -40,7 +40,7 @@ export default function RecipeCard({
           margin: "10px",
         }}
       >
-        <Link to={`/recipe/${id}`}>
+        <Link to={`recipe/${id}`}>
           <Button size="small">View Details</Button>
         </Link>
         <FavoriteButton recipe={recipe} />

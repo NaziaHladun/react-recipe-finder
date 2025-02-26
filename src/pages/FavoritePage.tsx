@@ -23,7 +23,7 @@ const FavoritesPage = () => {
   return (
     <Container>
       <Nav>
-        <Link to={`/`}>
+        <Link to={`/react-recipe-finder/`}>
           <BackButton variant="outlined" color="success">
             Back to recipes
           </BackButton>

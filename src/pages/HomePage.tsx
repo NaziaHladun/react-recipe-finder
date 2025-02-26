@@ -44,7 +44,7 @@ const HomePage = () => {
   return (
     <Container>
       <Nav>
-        <Link to={`/favorites`}>
+        <Link to={`favorites`}>
           <Button variant="outlined" color="success">
             Favorites
           </Button>
